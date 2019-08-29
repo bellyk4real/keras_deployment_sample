@@ -5,7 +5,7 @@ docker build -t kdeploy:1.0 .
 docker run -p 1234:1234 -t kdeploy:1.0
 
 # push docker image to dockerhub
-docker push -t kdeploy:1.0
+docker push kodumah/kdeploy:1.0
 
 # Deploy the YAML File
-$ kubectl create -f kdeploy.yaml
+$ kubectl create -f kodumah/kdeploy.yaml
