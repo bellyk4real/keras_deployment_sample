@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kdeploy=deployment
+  labels:
+    apps: kdeploy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kdeploy
+  template:
+    metadata:
+      labels:
+        app: kdeploy
+    spec:
+      containers:
+      - name: kdeploy
+      image: kdeploy:1.0
+      ports:
+      - containerPort: 1234

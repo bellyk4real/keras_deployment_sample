@@ -12,7 +12,7 @@ maxlen = 10
 word_index = imdb.get_word_index()
 # load the Model from file
 nlp_model = load_model('model/imdb_nlp.h5')
-# method that does the prediction – we will call this later
+# method that does the prediction we will call this later
 def predict_sentiment(my_test):
     # tokenize the sentence
     word_sequence = text_to_word_sequence(my_test)
