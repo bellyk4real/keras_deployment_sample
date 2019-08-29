@@ -26,7 +26,8 @@ def predict_sentiment(my_test):
         sent_test = sequence.pad_sequences([int_sequence],
             maxlen=maxlen)
         # make a prediction using our Model
-        y_pred = nlp_model.predict(sent_test)
+        y_pred = nlp_model._make_predict_function(sent_test)
+        
         # return a predicted sentiment real value between 0 and 1
         return y_pred[0][0]
 
@@ -46,12 +47,24 @@ htmlDefault = '<h4>Simple Python NLP demo</h4><form><textarea rows=10cols=100 na
 # this route will read text parameter and analyze it
 @app.route('/process')
 def process():
+    # define returning HTML
+    retHTML = ''
     # get the HTTP parameter by name 'text_input'
     in_text = request.args.get('text_input')
     # if input is provided process else show default page
     if in_text is not None:
+        # first show what was typed
+        retHTML += 'TEXT: <b>%s</b>'%(in_text)
+        # run the deep learning Model
+        result = predict_sentiment(in_text)
+        # if positive sentiment
+        if result > 0.5:
+            # if negative sentiment
+            retHTML += '<h4>Positive Sentiment! :-)</h4><br>'
+        else:
+            retHTML += '<h4>Negative Sentiment! :-(</h4><br>'
         # just show
-        return 'You typed: <b>%s</b>'%(in_text)
+        return retHTML
     else:
         return htmlDefault
 
